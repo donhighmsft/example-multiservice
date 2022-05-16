@@ -19,12 +19,16 @@ spec:
         draft: {{ default "draft-app" .Values.draft }}
         app: {{ template "fullname" . }}
     spec:
+      {{- with .Values.image.pullSecret }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
       imagePullSecrets:
-      - {{ .Values.image.pullSecret }}
+      - name: "{{ .Values.image.pullSecret }}"
         ports:
         - containerPort: {{ .Values.service.internalPort }}
         resources:

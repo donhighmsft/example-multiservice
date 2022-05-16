@@ -3,7 +3,8 @@ image:
   pullPolicy: IfNotPresent
   repository: dohhighacrcodefresh.azurecr.io/flask-ui
   tag: main-15775a4
-  pullSecret: 'dohhighacrcodefresh'
+  pullSecret: 
+  - name: 'dohhighacrcodefresh'
 service:
   name: flask-ui
   type: ClusterIP

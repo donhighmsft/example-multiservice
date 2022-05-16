@@ -3,7 +3,8 @@ image:
   pullPolicy: IfNotPresent
   repository: dohhighacrcodefresh.azurecr.io/ctrlr
   tag: main-f505305
-  pullSecret: 'dohhighacrcodefresh'
+  pullSecret: 
+  - name: 'dohhighacrcodefresh'
 service:
   name: ctrlr
   type: ClusterIP
