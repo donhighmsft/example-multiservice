@@ -4,7 +4,7 @@ image:
   repository: dohhighacrcodefresh.azurecr.io/flask-ui
   tag: main-15775a4
   pullSecret: 
-  - name: 'dohhighacrcodefresh'
+    - name: 'dohhighacrcodefresh'
 service:
   name: flask-ui
   type: ClusterIP
