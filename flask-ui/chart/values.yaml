@@ -1,8 +1,9 @@
 replicaCount: 1
 image:
   pullPolicy: IfNotPresent
-  repository: 336151728602.dkr.ecr.us-east-1.amazonaws.com/flask-ui
+  repository: dohhighacrcodefresh.azurecr.io/flask-ui
   tag: main-f505305
+  pullSecret: 'dohhighacrcodefresh'
 service:
   name: flask-ui
   type: ClusterIP

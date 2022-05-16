@@ -1,8 +1,9 @@
 replicaCount: 1
 image:
   pullPolicy: IfNotPresent
-  repository: 336151728602.dkr.ecr.us-east-1.amazonaws.com/ctrlr
+  repository: dohhighacrcodefresh.azurecr.io/ctrlr
   tag: main-f505305
+  pullSecret: 'dohhighacrcodefresh'
 service:
   name: ctrlr
   type: ClusterIP
