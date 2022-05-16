@@ -2,7 +2,7 @@ replicaCount: 1
 image:
   pullPolicy: IfNotPresent
   repository: dohhighacrcodefresh.azurecr.io/flask-ui
-  tag: main-f505305
+  tag: main-15775a4
   pullSecret: 'dohhighacrcodefresh'
 service:
   name: flask-ui
