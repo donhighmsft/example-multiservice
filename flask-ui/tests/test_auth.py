@@ -6,6 +6,7 @@ from flaskr.db import get_db
 
 
 def test_register(client, app):
+    # Trigger CI Build
     # test that viewing the page renders without template errors
     assert client.get("/auth/register").status_code == 200
 
