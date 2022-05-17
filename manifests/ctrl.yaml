@@ -1,0 +1,57 @@
+# Source: ctrlr/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: ctrlr-chart-ctrlr
+  labels:
+    app.kubernetes.io/name: "ctrlr"
+    helm.sh/chart: "ctrlr-1.3.3"
+    app.kubernetes.io/managed-by: "Helm"
+    app.kubernetes.io/instance: "ctrlr-chart"
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 5000
+    protocol: TCP
+    name: ctrlr
+  selector:
+    app: ctrlr-chart-ctrlr
+---
+# Source: ctrlr/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ctrlr-chart-ctrlr
+  labels:
+    draft: draft-app
+    chart: "ctrlr-1.3.3"
+    app: ctrlr-chart-ctrlr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ctrlr-chart-ctrlr
+  template:
+    metadata:
+      annotations:
+        buildID: ""
+      labels:
+        draft: draft-app
+        app: ctrlr-chart-ctrlr
+    spec:
+      imagePullSecrets:
+        - name: dohhighacrcodefresh
+      containers:
+      - name: ctrlr
+        image: "dohhighacrcodefresh.azurecr.io/ctrlr:main-a3e25c9"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+        resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi

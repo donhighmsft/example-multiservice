@@ -1,0 +1,57 @@
+# Source: flask-ui/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-ui-chart-flask-ui
+  labels:
+    app.kubernetes.io/name: "flask-ui"
+    helm.sh/chart: "flask-ui-1.2.6"
+    app.kubernetes.io/managed-by: "Helm"
+    app.kubernetes.io/instance: "flask-ui-chart"
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 5000
+    protocol: TCP
+    name: flask-ui
+  selector:
+    app: flask-ui-chart-flask-ui
+---
+# Source: flask-ui/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-ui-chart-flask-ui
+  labels:
+    draft: draft-app
+    chart: "flask-ui-1.2.6"
+    app: flask-ui-chart-flask-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-ui-chart-flask-ui
+  template:
+    metadata:
+      annotations:
+        buildID: ""
+      labels:
+        draft: draft-app
+        app: flask-ui-chart-flask-ui
+    spec:
+      imagePullSecrets:
+        - name: dohhighacrcodefresh
+      containers:
+      - name: flask-ui
+        image: "dohhighacrcodefresh.azurecr.io/flask-ui:main-db5a704"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+        resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi

@@ -1,0 +1,57 @@
+# Source: buslog/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: buslog-chart-buslog
+  labels:
+    app.kubernetes.io/name: "buslog"
+    helm.sh/chart: "buslog-1.4.2"
+    app.kubernetes.io/managed-by: "Helm"
+    app.kubernetes.io/instance: "buslog-chart"
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 5000
+    protocol: TCP
+    name: buslog--dry-run
+  selector:
+    app: buslog-chart-buslog
+---
+# Source: buslog/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: buslog-chart-buslog
+  labels:
+    draft: draft-app
+    chart: "buslog-1.4.2"
+    app: buslog-chart-buslog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: buslog-chart-buslog
+  template:
+    metadata:
+      annotations:
+        buildID: ""
+      labels:
+        draft: draft-app
+        app: buslog-chart-buslog
+    spec:
+      imagePullSecrets:
+        - name: dohhighacrcodefresh
+      containers:
+      - name: buslog
+        image: "dohhighacrcodefresh.azurecr.io/buslog:main-a3e25c9"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+        resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
