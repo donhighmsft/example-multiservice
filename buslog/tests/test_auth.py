@@ -6,13 +6,14 @@ from flaskr.db import get_db
 
 
 def test_register(client, app):
-    ## Trigger CI Build
+    # Trigger CI Build
     # test that viewing the page renders without template errors
     assert client.get("/auth/register").status_code == 200
 
     # test that successful registration redirects to the login page
-    response = client.post("/auth/register", data={"username": "a", "password": "a"})
-    
+    response = client.post(
+        "/auth/register", data={"username": "a", "password": "a"})
+
     # assert "http://localhost/auth/login" == response.headers["Location"]
     assert "/auth/login" == response.headers["Location"]
 

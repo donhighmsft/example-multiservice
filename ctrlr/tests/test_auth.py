@@ -6,15 +6,15 @@ from flaskr.db import get_db
 
 
 def test_register(client, app):
-    ## Trigger CI Build
+    # Trigger CI Build
     # test that viewing the page renders without template errors
     assert client.get("/auth/register").status_code == 200
 
     # test that successful registration redirects to the login page
-    response = client.post("/auth/register", data={"username": "a", "password": "a"})
+    response = client.post(
+        "/auth/register", data={"username": "a", "password": "a"})
     # assert "http://localhost/auth/login" == response.headers["Location"]
     assert "/auth/login" == response.headers["Location"]
-    
 
     # test that the user was inserted into the database
     with app.app_context():
@@ -47,7 +47,6 @@ def test_login(client, auth):
     response = auth.login()
     # assert response.headers["Location"] == "http://localhost/"
     assert response.headers["Location"] == "/"
-    
 
     # login request set the user_id in the session
     # check that the user is loaded from the session
